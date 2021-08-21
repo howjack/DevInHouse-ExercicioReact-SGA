@@ -1,8 +1,8 @@
 import React from "react";
 
 class StudentListItem extends React.Component {
-
 	render() {
+
 		return (
 			<li>
 				<h2>{this.props.nome + " " + this.props.sobrenome}</h2>
@@ -19,7 +19,7 @@ class StudentListItem extends React.Component {
 						<h4>Responsável: {this.props.avisar}</h4>
 					</div>
 				</div>
-                <button>Editar</button>
+                <button onClick={this.props.editBtn}>Editar</button>
 				<button>Apagar</button>
 			</li>
 		);

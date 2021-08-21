@@ -34,7 +34,7 @@ class StudentList extends React.Component {
 
 		return (
 			<ul className="studentsList">
-				{alunos.map((aluno) => {
+				{alunos.map((aluno, index) => {
                     if(aluno.nascimento.mes < 10) aluno.nascimento.mes = `0${aluno.nascimento.mes}`
 
 					return (
@@ -45,6 +45,8 @@ class StudentList extends React.Component {
                             turma={aluno.turma}
                             telefone={aluno.telefoneEmergencia}
                             avisar={aluno.avisoEmergencia}
+                            editBtn={this.props.editBtn}
+                            key={index}
 						/>
 					);
 				})}
