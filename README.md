@@ -10,11 +10,10 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/howjack/DevinHouse-Exercicios
+$ git clone https://github.com/howjack/DevInHouse-ExercicioReact-SGA
 
 # Acesse a pasta do projeto no seu terminal/cmd
-$ cd Semana7&8
-$ cd sga-app
+$ cd web-app
 
 # Instale as dependências
 $ npm install
