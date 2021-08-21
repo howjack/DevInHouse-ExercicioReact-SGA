@@ -1,10 +1,21 @@
 import React from 'react'
 import './App.css';
+import Consulta from './pages/Consulta';
+import Cadastro from './pages/Cadastro';
 
-class App extends React.Component{
+class App extends React.Component {
 
-  render(){
-    return <h1>asd</h1>
+  
+
+  render() {
+
+    let page = true;
+
+    return (
+      <>
+        {page && <Consulta />}
+        {!page && <Cadastro />}
+      </>)
   }
 }
 
