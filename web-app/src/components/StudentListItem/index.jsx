@@ -20,7 +20,7 @@ class StudentListItem extends React.Component {
 					</div>
 				</div>
                 <button onClick={this.props.editBtn}>Editar</button>
-				<button>Apagar</button>
+				<button onClick={() => console.log(this)}>Apagar</button>
 			</li>
 		);
 	}

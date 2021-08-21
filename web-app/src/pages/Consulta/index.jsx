@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/Header";
-import Modal from "../../components/Modal/modal";
+import Modal from "../../components/Modal";
 import StudentList from "../../components/StudentsList";
 
 class Consulta extends React.Component {
