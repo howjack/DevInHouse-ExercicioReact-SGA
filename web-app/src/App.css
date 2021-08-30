@@ -40,6 +40,29 @@ li {
 	padding: 10px;
 }
 
+.searchBar{
+	margin: 0px 50px;
+	padding: 5px 0px;
+	position: relative;
+}
+.searchBar img{
+	position: absolute;
+	left: 100%;
+	transform: translateX(-100%);
+	top: 5%;
+	opacity: 0.4;
+}
+.searchBar img:hover{
+	opacity: 0.8;
+}
+.search{
+	font-size: large;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+}
+
 .modal{
   position: fixed;
   top: 0;
@@ -50,4 +73,44 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+form{
+	display: flex;
+	align-items: center;
+	align-content: center;
+	flex-direction: column;
+}
+input{
+	max-width: 10rem;
+	padding: 5px 15px;
+	font-size: large;
+}
+#turma{
+	text-align: center;
+	font-size: larger;
+}
+label{
+	margin: auto;
+}
+.radio{
+	display: flex;
+	align-items: center;
+	align-content: center;
+}
+button{
+	margin: 10px;
+	padding: 12px 30px;
+	background-color: rgba(255, 0, 0, 0.7);
+	color: white;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+}
+button:first-of-type{
+	background-color: rgba(30, 168, 2, 0.7);
+	color: black;
+}
+
+.label{
+	display: inline;
+	margin: auto;
 }
