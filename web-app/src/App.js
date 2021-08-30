@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import Consulta from './pages/Consulta';
-import Cadastro from './pages/Cadastro';
+import Cadastro from './pages/Registration';
 
 class App extends React.Component {
 
@@ -9,7 +9,7 @@ class App extends React.Component {
 
   render() {
 
-    let page = true;
+    let page = false;
 
     return (
       <>
