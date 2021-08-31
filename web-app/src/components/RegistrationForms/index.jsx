@@ -22,9 +22,14 @@ class RegistrationForms extends React.Component {
 		console.log(number.target.value);
 	}
 
+	handleSubmit(event){
+		event.preventDefault();
+		console.log(event);
+	}
+
 	render() {
 		return (
-			<form>
+			<form onSubmit={this.handleSubmit}>
 				<label htmlFor="nome">Nome</label>
 				<input type="text" name="nome" id="nome" />
 				<label htmlFor="aniversario">Data de nascimento</label>
