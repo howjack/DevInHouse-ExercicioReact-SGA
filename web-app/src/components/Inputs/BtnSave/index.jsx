@@ -3,7 +3,7 @@ import React from "react";
 class BtnSave extends React.Component {
 	render() {
 		return (
-			<button type="submit" disabled>
+			<button type="submit">
 				Salvar
 			</button>
 		);

@@ -16,9 +16,53 @@ import BtnSave from "../Inputs/BtnSave";
 class RegistrationForms extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { showTextArea: false };
+		this.state = {
+			showTextArea: false,
+			name: "",
+			birthDate: "",
+			respName: "",
+			respPhone: "",
+			respWarningDegree: "",
+			respWarningPhone: "",
+			foodRestriction: "",
+			foodDescription: "",
+			authorizedPersons: "",
+			class: "",
+			remarks: "",
+		};
 
 		this.handleShowTextArea = this.handleShowTextArea.bind(this);
+		this.onChangeName = this.onChangeName.bind(this);
+		this.onChangeBirthDate = this.onChangeBirthDate.bind(this);
+		this.onChangeRespName = this.onChangeRespName.bind(this);
+		this.onChangeRespPhone = this.onChangeRespPhone.bind(this);
+		this.onChangeRespWarningDegree = this.onChangeRespWarningDegree.bind(this);
+	}
+
+	onChangeName(event) {
+		this.setState({ name: event.target.value }, () =>
+			console.log(this.state.name)
+		);
+	}
+	onChangeBirthDate(event) {
+		this.setState({ birthDate: event.target.value }, () =>
+			console.log(this.state.birthDate)
+		);
+	}
+	onChangeRespName(event) {
+		this.setState({ respName: event.target.value }, () =>
+			console.log(this.state.respName)
+		);
+	}
+	onChangeRespPhone(event) {
+		this.setState({ respPhone: event.target.value }, () =>
+			console.log(this.state.respPhone)
+		);
+	}
+	onChangeRespWarningDegree(event) {
+		this.setState({ respWarningDegree: event.target.value }, () =>
+			console.log(this.state.respWarningDegree)
+		);
 	}
 
 	handleShowTextArea(event) {
@@ -47,11 +91,13 @@ class RegistrationForms extends React.Component {
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<InputName />
-				<InputDate />
-				<InputNameResponsavel />
-				<InputPhoneResponsavel />
-				<SelectEmergency />
+				<InputName onChangeName={this.onChangeName} />
+				<InputDate onChangeBirthDate={this.onChangeBirthDate} />
+				<InputNameResponsavel onChangeRespName={this.onChangeRespName} />
+				<InputPhoneResponsavel onChangeRespPhone={this.onChangeRespPhone} />
+				<SelectEmergency
+					onChangeRespWarningDegree={this.onChangeRespWarningDegree}
+				/>
 				<InputPhoneEmergency />
 				<InputRadioRestricao radioTextArea={this.handleShowTextArea} />
 				{this.state.showTextArea && <TextAreaRestricao />}
