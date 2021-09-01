@@ -66,7 +66,7 @@ class PAutorizadas extends React.Component {
 					<option value="Avo">Avós</option>
 					<option value="Padrinho">Padrinhos</option>
 				</select>
-				<button onClick={this.handleBtn}>add</button>
+				<button onClick={this.handleBtn}>Add</button>
 				<ul className={this.existList ? "listAutorizados" : ""}>
 					{this.autorizados.map((item, index) => {
 						return (

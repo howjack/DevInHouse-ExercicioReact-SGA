@@ -11,6 +11,7 @@ import InputPhoneEmergency from "../Inputs/InputsPhoneEmergency";
 import SelectTurma from "../Inputs/SelectTurma";
 import TextAreaObsevacoes from "../Inputs/TextAreaObservacoes";
 import PAutorizadas from "../PessoasAutorizadas";
+import BtnSave from "../Inputs/BtnSave";
 
 class RegistrationForms extends React.Component {
 	constructor(props) {
@@ -21,14 +22,14 @@ class RegistrationForms extends React.Component {
 	}
 
 	handleShowTextArea(event) {
-		if (event.target.value === "true") {
+		if (event.target.checked) {
 			this.setState(
 				() => ({ showTextArea: true }),
 				() => {
 					console.log(this.state.showTextArea);
 				}
 			);
-		} else if (event.target.value === "false") {
+		} else {
 			this.setState(
 				() => ({ showTextArea: false }),
 				() => {
@@ -58,10 +59,7 @@ class RegistrationForms extends React.Component {
 				<PAutorizadas />
 				<SelectTurma />
 				<TextAreaObsevacoes />
-				<button type="submit">Novo</button>
-				<button type="submit" disabled>
-					Salvar
-				</button>
+				<BtnSave />
 			</form>
 		);
 	}
