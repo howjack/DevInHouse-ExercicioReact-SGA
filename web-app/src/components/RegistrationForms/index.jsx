@@ -97,7 +97,15 @@ class RegistrationForms extends React.Component {
 				</div>
 				<PAutorizadas />
 				<label htmlFor="turma">Turma</label>
-				<input type="text" name="turma" id="turma" readOnly value="203" />
+				{/* <input type="text" name="turma" id="turma" readOnly value="203" /> */}
+				<select name="turma" id="turma">
+					<option value="101">101</option>
+					<option value="102">102</option>
+					<option value="201">201</option>
+					<option value="202">202</option>
+					<option value="301">301</option>
+					<option value="302">302</option>
+				</select>
 				<label htmlFor="observacoes">Observações Adicionais</label>
 				<textarea
 					name="observacoes"
