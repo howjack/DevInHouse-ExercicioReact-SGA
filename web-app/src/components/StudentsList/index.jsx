@@ -2,51 +2,48 @@ import React from "react";
 import StudentListItem from "../StudentListItem";
 
 class StudentList extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			students: [],
+		};
+
+		this.onDelete = this.onDelete.bind(this);
+	}
+
+	onDelete(prop) {
+		let index = prop.props.id;
+		let list = this.state.students;
+		list.splice([index], 1);
+		this.setState(
+			() => ({ students: list }),
+			() => localStorage.setItem("Students", JSON.stringify(list))
+		);
+	}
+
+	componentDidMount() {
+		this.setState(() => ({
+			students: JSON.parse(localStorage.getItem("Students")),
+		}));
+	}
 	render() {
-		let alunos = [
-			{
-				nome: "Phelipe",
-				sobrenome: "Alves Fagundes",
-				nascimento: {
-					dia: 26,
-					mes: 6,
-					ano: 1998,
-				},
-				numeroMatricula: 222,
-				turma: "202",
-				telefoneEmergencia: "47991xx-72xx",
-				avisoEmergencia: "pai",
-			},
-            {
-				nome: "Jones",
-				sobrenome: "Para",
-				nascimento: {
-					dia: 21,
-					mes: 12,
-					ano: 1992,
-				},
-				numeroMatricula: 55,
-				turma: "302",
-				telefoneEmergencia: "47991xx-72xx",
-				avisoEmergencia: "pai",
-			},
-		];
+		console.log(this.state.students);
 
 		return (
 			<ul className="studentsList">
-				{alunos.map((aluno, index) => {
-                    if(aluno.nascimento.mes < 10) aluno.nascimento.mes = `0${aluno.nascimento.mes}`
-
+				{this.state.students.map((aluno, index) => {
 					return (
 						<StudentListItem
-							nome={aluno.nome}
-							sobrenome={aluno.sobrenome}
-							nascimento={aluno.nascimento}
-                            turma={aluno.turma}
-                            telefone={aluno.telefoneEmergencia}
-                            avisar={aluno.avisoEmergencia}
-                            editBtn={this.props.editBtn}
-                            key={index}
+							nome={aluno.name}
+							nascimento={aluno.birthDate}
+							turma={aluno.class}
+							telefone={aluno.respWarningPhone}
+							avisar={aluno.respWarningDegree}
+							onEdit={this.props.onEdit}
+							onDelete={this.onDelete}
+							id={index}
+							key={index}
 						/>
 					);
 				})}

@@ -4,9 +4,13 @@ class PAutorizadas extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { autorizadaValue: "", grauValue: "", existList: false };
+		this.state = {
+			autorizadaValue: "",
+			grauValue: "",
+			existList: true,
+			autorizados: [],
+		};
 
-		this.autorizados = [];
 		this.handleChange = this.handleChange.bind(this);
 		this.handleBtn = this.handleBtn.bind(this);
 		this.handleOptions = this.handleOptions.bind(this);
@@ -22,7 +26,7 @@ class PAutorizadas extends React.Component {
 	async handleBtn(event) {
 		event.preventDefault();
 		if (this.state.autorizadaValue && this.state.grauValue) {
-			this.autorizados.push({
+			this.state.autorizados.push({
 				name: this.state.autorizadaValue,
 				grau: this.state.grauValue,
 			});
@@ -30,22 +34,36 @@ class PAutorizadas extends React.Component {
 			this.setState({ grauValue: "" });
 			this.setState({ existList: true });
 
-			await this.props.onChangeAuthorizedPersons(this.autorizados);
+			await this.props.onChangeAuthorizedPersons(this.state.autorizados);
 		} else {
 			console.error("Algum campo em branco");
 		}
 	}
 	async handleDeleteBtn(event, index) {
 		event.preventDefault();
-		this.autorizados.splice(index, 1);
+		this.state.autorizados.splice(index, 1);
 
-		await this.props.onChangeAuthorizedPersons(this.autorizados);
+		await this.props.onChangeAuthorizedPersons(this.state.autorizados);
 
 		event.target.remove();
 
-		if (this.autorizados.length === 0) {
+		if (this.state.autorizados.length === 0) {
 			this.setState({ existList: false });
 		}
+	}
+
+	componentDidMount(existList) {
+		
+		if (this.props.stateAuthPersons !== "") {
+			this.setState(
+				() => ({ autorizados: this.props.stateAuthPersons }),
+				() => console.log("asd")
+			);
+		}
+		this.render();
+	}
+	forceUpdate(){
+		
 	}
 
 	render() {
@@ -73,7 +91,7 @@ class PAutorizadas extends React.Component {
 				</select>
 				<button onClick={this.handleBtn}>Add</button>
 				<ul className={this.state.existList ? "listAutorizados" : ""}>
-					{this.autorizados.map((item, index) => {
+					{this.state.autorizados.map((item, index) => {
 						return (
 							<li
 								key={index}

@@ -2,15 +2,14 @@ import React from "react";
 
 class StudentListItem extends React.Component {
 	render() {
-
 		return (
 			<li>
-				<h2>{this.props.nome + " " + this.props.sobrenome}</h2>
+				<h2>{this.props.nome}</h2>
 				<div className="listInformation">
 					<div>
 						<h4>
 							Data de Nascimento:
-							{` ${this.props.nascimento.dia}/${this.props.nascimento.mes}/${this.props.nascimento.ano}`}
+							{this.props.nascimento}
 						</h4>
 						<h4>Turma: {this.props.turma}</h4>
 					</div>
@@ -19,8 +18,8 @@ class StudentListItem extends React.Component {
 						<h4>Responsável: {this.props.avisar}</h4>
 					</div>
 				</div>
-                <button onClick={this.props.editBtn}>Editar</button>
-				<button onClick={() => console.log(this)}>Apagar</button>
+				<button onClick={() => this.props.onEdit(this)}>Editar</button>
+				<button onClick={(e) => this.props.onDelete(this, e)}>Apagar</button>
 			</li>
 		);
 	}

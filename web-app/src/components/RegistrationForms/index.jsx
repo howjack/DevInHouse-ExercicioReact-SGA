@@ -12,7 +12,7 @@ import TextAreaObsevacoes from "../Inputs/TextAreaObservacoes";
 import PAutorizadas from "../PessoasAutorizadas";
 import BtnSave from "../Inputs/BtnSave";
 
-let arrayKid = {};
+let arrayKid = [];
 
 class RegistrationForms extends React.Component {
 	constructor(props) {
@@ -34,6 +34,8 @@ class RegistrationForms extends React.Component {
 
 		this.handleShowTextArea = this.handleShowTextArea.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.loadState = this.loadState.bind(this);
+		this.handleStudent = this.handleStudent.bind(this);
 		this.onChangeName = this.onChangeName.bind(this);
 		this.onChangeBirthDate = this.onChangeBirthDate.bind(this);
 		this.onChangeRespName = this.onChangeRespName.bind(this);
@@ -84,24 +86,15 @@ class RegistrationForms extends React.Component {
 
 	handleShowTextArea(event) {
 		if (event.target.checked) {
-			this.setState(
-				() => ({ showTextArea: true }),
-				() => {
-					console.log(this.state.showTextArea);
-				}
-			);
+			this.setState(() => ({ showTextArea: true }));
 		} else {
-			this.setState(
-				() => ({ showTextArea: false }),
-				() => {
-					console.log(this.state.showTextArea);
-				}
-			);
+			this.setState(() => ({ showTextArea: false }));
 		}
 	}
 
 	saveState(obj) {
-		obj[this.state.name] = {
+		obj = {
+			showTextArea: this.state.showTextArea,
 			name: this.state.name,
 			birthDate: this.state.birthDate,
 			respName: this.state.respName,
@@ -116,12 +109,67 @@ class RegistrationForms extends React.Component {
 		};
 		return { ...obj };
 	}
+	handleStudent(value) {
+		if (value.name === this.props.studentEdit) {
+			return value;
+		}
+	}
+
+	componentDidMount() {
+		if (this.props.studentEdit) {
+			if (localStorage.getItem("Students") != null) {
+				arrayKid = JSON.parse(localStorage.getItem("Students"));
+				let student = arrayKid.filter(this.handleStudent);
+				this.loadState(student[0]);
+			}
+		}
+	}
+	componentWillUnmount(){
+		this.emptyState();
+	}
+
+	componentDidUpdate() {
+		console.log(this.state);
+	}
+	emptyState(){
+		this.setState(() => ({
+			showTextArea: "",
+			name: "",
+			birthDate: "",
+			respName: "",
+			respPhone: "",
+			respWarningDegree: "",
+			respWarningPhone: "",
+			foodDescription: "",
+			photoAuthorization: "",
+			authorizedPersons: "",
+			class: "",
+			remarks: "",
+		}));
+	}
+
+	loadState(kid) {
+		this.setState(() => ({
+			showTextArea: kid.showTextArea,
+			name: kid.name,
+			birthDate: kid.birthDate,
+			respName: kid.respName,
+			respPhone: kid.respPhone,
+			respWarningDegree: kid.respWarningDegree,
+			respWarningPhone: kid.respWarningPhone,
+			foodDescription: kid.foodDescription,
+			photoAuthorization: kid.photoAuthorization,
+			authorizedPersons: kid.authorizedPersons,
+			class: kid.class,
+			remarks: kid.remarks,
+		}));
+	}
 
 	async handleSubmit(event) {
 		event.preventDefault();
 		console.log(event);
 
-		arrayKid = await this.saveState(arrayKid);
+		arrayKid.push(await this.saveState(arrayKid));
 
 		console.log(arrayKid);
 		localStorage.setItem("Students", JSON.stringify(arrayKid));
@@ -130,34 +178,58 @@ class RegistrationForms extends React.Component {
 	render() {
 		return (
 			<form onSubmit={this.handleSubmit}>
-				<InputName onChangeName={this.onChangeName} />
-				<InputDate onChangeBirthDate={this.onChangeBirthDate} />
-				<InputNameResponsavel onChangeRespName={this.onChangeRespName} />
+				<InputName
+					onChangeName={this.onChangeName}
+					stateName={this.state.name}
+				/>
+				<InputDate
+					onChangeBirthDate={this.onChangeBirthDate}
+					stateDate={this.state.birthDate}
+				/>
+				<InputNameResponsavel
+					onChangeRespName={this.onChangeRespName}
+					stateNameResp={this.state.respName}
+				/>
 				<InputPhone
 					label="Telefone do Responsável"
 					onChangeRespPhone={this.onChangeRespPhone}
+					statePhone={this.state.respPhone}
 				/>
 				<SelectEmergency
 					onChangeRespWarningDegree={this.onChangeRespWarningDegree}
+					stateWarning={this.state.respWarningDegree}
 				/>
 				<InputPhone
 					label="Telefone de Emergência"
 					onChangeRespPhone={this.onChangeRespWarningPhone}
+					statePhone={this.state.respWarningPhone}
 				/>
-				<InputRadioRestricao radioTextArea={this.handleShowTextArea} />
+				<InputRadioRestricao
+					radioTextArea={this.handleShowTextArea}
+					stateShowText={this.state.showTextArea}
+				/>
 				{this.state.showTextArea && (
 					<TextAreaRestricao
 						onChangeFoodDescription={this.onChangeFoodDescription}
+						stateTextArea={this.state.foodDescription}
 					/>
 				)}
 				<InputRadioPhoto
 					onChangePhotoAuthorization={this.onChangePhotoAuthorization}
+					statePhoto={this.state.photoAuthorization}
 				/>
 				<PAutorizadas
 					onChangeAuthorizedPersons={this.onChangeAuthorizedPersons}
+					stateAuthPersons={this.state.authorizedPersons}
 				/>
-				<SelectTurma onChangeClass={this.onChangeClass} />
-				<TextAreaObsevacoes onChangeRemarks={this.onChangeRemarks} />
+				<SelectTurma
+					onChangeClass={this.onChangeClass}
+					stateClass={this.state.class}
+				/>
+				<TextAreaObsevacoes
+					onChangeRemarks={this.onChangeRemarks}
+					stateRemarks={this.state.remarks}
+				/>
 				<BtnSave />
 			</form>
 		);
