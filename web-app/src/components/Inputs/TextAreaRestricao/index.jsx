@@ -10,6 +10,7 @@ class TextAreaRestricao extends React.Component {
 					id="descricaoRestricao"
 					cols="30"
 					rows="10"
+					onChange={this.props.onChangeFoodDescription}
 				/>
 			</>
 		);

@@ -10,6 +10,7 @@ class TextAreaObsevacoes extends React.Component {
 					id="observacoes"
 					cols="30"
 					rows="10"
+					onChange={this.props.onChangeRemarks}
 				></textarea>
 			</>
 		);

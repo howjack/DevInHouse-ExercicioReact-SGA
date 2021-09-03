@@ -4,10 +4,9 @@ class PAutorizadas extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = { autorizadaValue: "", grauValue: "" };
+		this.state = { autorizadaValue: "", grauValue: "", existList: false };
 
 		this.autorizados = [];
-		this.existList = false;
 		this.handleChange = this.handleChange.bind(this);
 		this.handleBtn = this.handleBtn.bind(this);
 		this.handleOptions = this.handleOptions.bind(this);
@@ -20,7 +19,7 @@ class PAutorizadas extends React.Component {
 	handleOptions(event) {
 		this.setState({ grauValue: event.target.value });
 	}
-	handleBtn(event) {
+	async handleBtn(event) {
 		event.preventDefault();
 		if (this.state.autorizadaValue && this.state.grauValue) {
 			this.autorizados.push({
@@ -29,18 +28,24 @@ class PAutorizadas extends React.Component {
 			});
 			this.setState({ autorizadaValue: "" });
 			this.setState({ grauValue: "" });
-			this.existList = true;
-			console.log(this.autorizados);
+			this.setState({ existList: true });
+
+			await this.props.onChangeAuthorizedPersons(this.autorizados);
 		} else {
 			console.error("Algum campo em branco");
 		}
 	}
-	handleDeleteBtn(event) {
+	async handleDeleteBtn(event, index) {
 		event.preventDefault();
-		// this.autorizados.pop(event)
-		console.log(event);
+		this.autorizados.splice(index, 1);
+
+		await this.props.onChangeAuthorizedPersons(this.autorizados);
 
 		event.target.remove();
+
+		if (this.autorizados.length === 0) {
+			this.setState({ existList: false });
+		}
 	}
 
 	render() {
@@ -61,17 +66,19 @@ class PAutorizadas extends React.Component {
 					onChange={this.handleOptions}
 				>
 					<option value=""></option>
-					<option value="Pai">Pais</option>
-					<option value="Tio">Tios</option>
-					<option value="Avo">Avós</option>
-					<option value="Padrinho">Padrinhos</option>
+					<option value="Pais">Pais</option>
+					<option value="Tios">Tios</option>
+					<option value="Avós">Avós</option>
+					<option value="Padrinhos">Padrinhos</option>
 				</select>
 				<button onClick={this.handleBtn}>Add</button>
-				<ul className={this.existList ? "listAutorizados" : ""}>
+				<ul className={this.state.existList ? "listAutorizados" : ""}>
 					{this.autorizados.map((item, index) => {
 						return (
-							// parei Aqui
-							<li key={index} onDoubleClick={this.handleDeleteBtn}>
+							<li
+								key={index}
+								onDoubleClick={(e) => this.handleDeleteBtn(e, index)}
+							>
 								{item.name} - {item.grau}
 							</li>
 						);
