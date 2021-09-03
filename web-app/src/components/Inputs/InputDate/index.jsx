@@ -12,6 +12,7 @@ class InputDate extends React.Component {
 					max="2016-12-31"
 					id="aniversario"
 					onChange={this.props.onChangeBirthDate}
+					required
 				/>
 			</>
 		);

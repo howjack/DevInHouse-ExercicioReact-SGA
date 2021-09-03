@@ -5,7 +5,7 @@ class InputNameResponsavel extends React.Component {
 		return (
 			<>
 				<label htmlFor="responsavel">Nome do Responsável</label>
-				<input type="text" name="nomeResponsavel" id="responsavel" />
+				<input type="text" name="nomeResponsavel" id="responsavel" onChange={this.props.onChangeRespName} required/>
 			</>
 		);
 	}
