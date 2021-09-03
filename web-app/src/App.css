@@ -3,6 +3,7 @@ li {
 }
 
 .header {
+	position: relative;
 	font-size: larger;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	width: 100%;
@@ -74,6 +75,22 @@ li {
   justify-content: center;
   align-items: center;
 }
+
+.transitionBtn{
+	display: flex;
+	top: 55%;
+	transform: translateY(-50%);
+	left: 10%;
+	position: absolute;
+	opacity: 0.5;
+}
+.transitionBtn:hover{
+	opacity: 1;
+}
+#arrow{
+	transform: rotateZ(180deg);
+}
+
 
 form{
 	display: flex;
