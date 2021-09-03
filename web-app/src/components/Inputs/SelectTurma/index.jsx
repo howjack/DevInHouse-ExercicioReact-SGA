@@ -5,7 +5,7 @@ class SelectTurma extends React.Component {
 		return (
 			<>
 				<label htmlFor="turma">Turma</label>
-				<select name="turma" id="turma" onChange={this.props.onChangeClass} required>
+				<select name="turma" id="turma" onChange={this.props.onChangeClass} value={this.props.stateClass} required>
 					<option value=""></option>
 					<option value="101" required>101</option>
 					<option value="102" required>102</option>

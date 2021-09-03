@@ -8,6 +8,7 @@ class InputRadioRestricao extends React.Component {
 					<input
 						type="checkbox"
 						name="restricaoAlimentar"
+						checked={this.props.stateShowText}
 						onChange={this.props.radioTextArea}
 					/>
 					Tem restrição alimentar

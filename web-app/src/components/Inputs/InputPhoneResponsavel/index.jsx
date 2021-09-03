@@ -1,17 +1,14 @@
 import React from "react";
 
 class InputPhoneResponsavel extends React.Component {
-
-	constructor(props){
-		super(props)
+	constructor(props) {
+		super(props);
 
 		this.mascaraDeTelefone = this.mascaraDeTelefone.bind(this);
 	}
 
-
 	mascaraDeTelefone(number) {
 		const textoAtual = number.target.value;
-
 
 		let textoAjustado;
 		const textoHifem = textoAtual.replace(/[^\d]+/g, "");
@@ -22,13 +19,11 @@ class InputPhoneResponsavel extends React.Component {
 			textoAjustado = `(${parte0})${parte1}-${parte2}`;
 
 			number.target.value = textoAjustado;
-		} else {
-			textoAjustado = console.error("numero invalido");
 		}
-		this.props.onChangeRespPhone(textoAjustado)
+		this.props.onChangeRespPhone(textoAjustado);
 	}
-	backspaceNumber(event){
-		if(event.key === "Backspace"){
+	backspaceNumber(event) {
+		if (event.key === "Backspace") {
 			event.target.value = "";
 		}
 	}
@@ -40,11 +35,12 @@ class InputPhoneResponsavel extends React.Component {
 				<input
 					type="tel"
 					maxLength="11"
-					onBlur={this.mascaraDeTelefone}
+					onChange={this.mascaraDeTelefone}
 					pattern="\([0-9]{2}\)[0-9]{4,6}-[0-9]{3,4}$"
 					name="telefoneResponsavel"
 					id="telefone"
 					onKeyDown={this.backspaceNumber}
+					value={this.props.statePhone}
 					required
 				/>
 			</>

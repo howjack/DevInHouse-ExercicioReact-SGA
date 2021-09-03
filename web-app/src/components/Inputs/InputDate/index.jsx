@@ -8,6 +8,7 @@ class InputDate extends React.Component {
 				<input
 					type="date"
 					name="aniversario"
+					value={this.props.stateDate}
 					min="2005-01-01"
 					max="2016-12-31"
 					id="aniversario"

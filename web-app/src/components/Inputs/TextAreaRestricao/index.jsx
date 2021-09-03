@@ -11,6 +11,7 @@ class TextAreaRestricao extends React.Component {
 					cols="30"
 					rows="10"
 					onChange={this.props.onChangeFoodDescription}
+					value={this.props.stateTextArea}
 				/>
 			</>
 		);

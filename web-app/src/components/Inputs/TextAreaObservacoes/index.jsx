@@ -11,6 +11,7 @@ class TextAreaObsevacoes extends React.Component {
 					cols="30"
 					rows="10"
 					onChange={this.props.onChangeRemarks}
+					value={this.props.stateRemarks}
 				></textarea>
 			</>
 		);
