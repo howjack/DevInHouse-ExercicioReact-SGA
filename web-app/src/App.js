@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css';
+import Header from './components/Header';
 import Consulta from './pages/Consulta';
 import Cadastro from './pages/Registration';
 
@@ -7,20 +8,20 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { page: true, student: "" }
+    this.state = { page: 0, student: "" }
 
     this.studentEdit = "";
     this.handleChange = this.handleChange.bind(this)
     this.onEdit = this.onEdit.bind(this)
   }
 
-  handleChange() {
-    this.setState(() => ({ page: !this.state.page }))
+  handleChange(value) {
+    this.setState(() => ({ page: value }))
   }
   onEdit(event) {
     this.setState(() => ({ student: event.props.nome }),
       () => {
-        this.setState(() => ({ page: !this.state.page }))
+        this.setState(() => ({ page: 2 }))
       }
     )
   }
@@ -28,8 +29,9 @@ class App extends React.Component {
   render() {
     return (
       <>
-        {this.state.page && <Consulta onTransition={this.handleChange} onEdit={this.onEdit} />}
-        {!this.state.page && <Cadastro onTransition={this.handleChange} studentEdit={this.state.student} />}
+        <Header onTransition={this.handleChange} />
+        {this.state.page === 1 && <Consulta onEdit={this.onEdit} />}
+        {this.state.page === 2 && <Cadastro studentEdit={this.state.student} />}
       </>)
   }
 }
