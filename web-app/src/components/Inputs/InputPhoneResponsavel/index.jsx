@@ -1,7 +1,6 @@
 import React from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
-import pt from "react-phone-input-2/lang/pt.json";
 
 class InputPhoneResponsavel extends React.Component {
 	render() {
