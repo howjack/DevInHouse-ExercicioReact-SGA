@@ -20,7 +20,7 @@ class RegistrationForms extends React.Component {
 		this.state = {
 			showTextArea: false,
 			name: "",
-			birthDate: "",
+			birthDate: (new Date(2015, 11, 31)),
 			respName: "",
 			respPhone: "",
 			respWarningDegree: "",
@@ -54,7 +54,10 @@ class RegistrationForms extends React.Component {
 		this.setState({ name: event.target.value });
 	}
 	onChangeBirthDate(event) {
-		this.setState({ birthDate: event.target.value });
+		// let dia = new Date(event).getDate();
+		// let mes = new Date(event).getMonth();
+		// let ano = new Date(event).getFullYear();
+		this.setState({ birthDate: event });
 	}
 	onChangeRespName(event) {
 		this.setState({ respName: event.target.value });
@@ -127,10 +130,6 @@ class RegistrationForms extends React.Component {
 	componentWillUnmount(){
 		this.emptyState();
 	}
-
-	componentDidUpdate() {
-		console.log(this.state);
-	}
 	emptyState(){
 		this.setState(() => ({
 			showTextArea: "",
@@ -177,7 +176,7 @@ class RegistrationForms extends React.Component {
 
 	render() {
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<form onSubmit={this.handleSubmit} className="form">
 				<InputName
 					onChangeName={this.onChangeName}
 					stateName={this.state.name}
@@ -191,7 +190,7 @@ class RegistrationForms extends React.Component {
 					stateNameResp={this.state.respName}
 				/>
 				<InputPhone
-					label="Telefone do Responsável"
+					label="Telefone do Resp"
 					onChangeRespPhone={this.onChangeRespPhone}
 					statePhone={this.state.respPhone}
 				/>
