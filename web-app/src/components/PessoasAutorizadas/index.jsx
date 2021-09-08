@@ -1,4 +1,9 @@
 import React from "react";
+import TextField from "@material-ui/core/TextField";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
 
 class PAutorizadas extends React.Component {
 	constructor(props) {
@@ -53,7 +58,6 @@ class PAutorizadas extends React.Component {
 	}
 
 	componentDidMount(existList) {
-		
 		if (this.props.stateAuthPersons !== "") {
 			this.setState(
 				() => ({ autorizados: this.props.stateAuthPersons }),
@@ -62,21 +66,27 @@ class PAutorizadas extends React.Component {
 		}
 		this.render();
 	}
-	forceUpdate(){
-		
-	}
+	forceUpdate() {}
 
 	render() {
 		return (
 			<>
-				<label htmlFor="autorizada">Nome da pessoa Autorizada</label>
+				{/* <label htmlFor="autorizada">Nome da pessoa Autorizada</label>
 				<input
 					type="text"
 					value={this.state.autorizadaValue}
 					onChange={this.handleChange}
 					name="autorizada"
+				/> */}
+				<TextField
+					id="outlined-basic"
+					label="Pessoa Autorizada"
+					variant="outlined"
+					type="text"
+					value={this.state.autorizadaValue}
+					onChange={this.handleChange}
 				/>
-				<label htmlFor="grauParentesco">Grau de parentesco</label>
+				{/* <label htmlFor="grauParentesco">Grau de parentesco</label>
 				<select
 					name="grauParentesco"
 					id="grauParentesco"
@@ -88,8 +98,31 @@ class PAutorizadas extends React.Component {
 					<option value="Tios">Tios</option>
 					<option value="Avós">Avós</option>
 					<option value="Padrinhos">Padrinhos</option>
-				</select>
-				<button onClick={this.handleBtn}>Add</button>
+				</select> */}
+				<FormControl variant="outlined">
+					<InputLabel htmlFor="outlined-age-native-simple">Grau</InputLabel>
+					<Select
+						className="select"
+						native
+						value={this.state.grauValue}
+						onChange={this.handleOptions}
+						label="Grau"
+						inputProps={{
+							name: "Grau",
+							id: "outlined-age-native-simple",
+						}}
+					>
+						<option aria-label="None" value="" />
+						<option value="Pais">Pais</option>
+						<option value="Tios">Tios</option>
+						<option value="Avós">Avós</option>
+						<option value="Padrinhos">Padrinhos</option>
+					</Select>
+				</FormControl>
+				{/* <button onClick={this.handleBtn}>Add</button> */}
+				<Button variant="contained" onClick={this.handleBtn}>
+					Adicionar
+				</Button>
 				<ul className={this.state.existList ? "listAutorizados" : ""}>
 					{this.state.autorizados.map((item, index) => {
 						return (
