@@ -1,5 +1,5 @@
 import React from "react";
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from "@material-ui/core/IconButton";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -29,13 +29,29 @@ class StudentList extends React.Component {
 		);
 	}
 
-	resetData(data){
+	resetData(data) {
 		let date = new Date(data).getDate();
 		let month = new Date(data).getMonth();
 		let year = new Date(data).getFullYear();
-		if(month < 10) month = `0${month+1}`;
+		if (month < 10) month = `0${month + 1}`;
 
-		return `${date}/${month}/${year}`
+		return `${date}/${month}/${year}`;
+	}
+	resetPhone(data) {
+		let numeroAjustado;
+		const textoHifem = data.replace(/[^\d]+/g, "");
+		if (data.length === 13) {
+			const parte0 = textoHifem.slice(2, 4);
+			const parte1 = textoHifem.slice(4, 9);
+			const parte2 = textoHifem.slice(9, 13);
+			numeroAjustado = `(${parte0})${parte1}-${parte2}`;
+		} else if (data.length === 12) {
+			const parte0 = textoHifem.slice(2, 4);
+			const parte1 = textoHifem.slice(4, 8);
+			const parte2 = textoHifem.slice(8, 12);
+			numeroAjustado = `(${parte0})${parte1}-${parte2}`;
+		}
+		return numeroAjustado;
 	}
 
 	componentDidMount() {
@@ -65,15 +81,21 @@ class StudentList extends React.Component {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{this.state.students.map((row) => (
-									<TableRow key={row.name}>
+								{this.state.students.map((student) => (
+									<TableRow key={student.name}>
 										<TableCell component="th" scope="row">
-											{row.name}
+											{student.name}
 										</TableCell>
-										<TableCell align="center">{row.class}</TableCell>
-										<TableCell align="center">{this.resetData(row.birthDate)}</TableCell>
-										<TableCell align="center">{row.respWarningPhone}</TableCell>
-										<TableCell align="center">{row.respWarningDegree}</TableCell>
+										<TableCell align="center">{student.class}</TableCell>
+										<TableCell align="center">
+											{this.resetData(student.birthDate)}
+										</TableCell>
+										<TableCell align="center">
+											{this.resetPhone(student.respWarningPhone)}
+										</TableCell>
+										<TableCell align="center">
+											{student.respWarningDegree}
+										</TableCell>
 										<TableCell align="center">
 											<IconButton
 												aria-label="delete"
