@@ -15,10 +15,11 @@ class Header extends React.Component {
 	}
 
 	handleChange = (event, newValue) => {
-		console.log(newValue);
 		this.setState({ value: newValue });
 		this.props.onTransition(newValue);
 	};
+	async componentDidMount() {
+	}
 
 	render() {
 		return (
