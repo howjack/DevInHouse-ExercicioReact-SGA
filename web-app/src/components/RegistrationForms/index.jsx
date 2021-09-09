@@ -12,7 +12,7 @@ import TextAreaObsevacoes from "../Inputs/TextAreaObservacoes";
 import PAutorizadas from "../PessoasAutorizadas";
 import BtnSave from "../Inputs/BtnSave";
 
-let arrayKid = [];
+// let arrayKid = [];
 
 class RegistrationForms extends React.Component {
 	constructor(props) {
@@ -20,14 +20,14 @@ class RegistrationForms extends React.Component {
 		this.state = {
 			showTextArea: false,
 			name: "",
-			birthDate: (new Date(2015, 11, 31)),
+			birthDate: new Date(2015, 11, 31),
 			respName: "",
 			respPhone: "",
 			respWarningDegree: "",
 			respWarningPhone: "",
 			foodDescription: "",
-			photoAuthorization: "",
-			authorizedPersons: "",
+			photoAuthorization: false,
+			authorizedPersons: [],
 			class: "",
 			remarks: "",
 		};
@@ -95,8 +95,8 @@ class RegistrationForms extends React.Component {
 		}
 	}
 
-	saveState(obj) {
-		obj = {
+	saveState() {
+		let obj = {
 			showTextArea: this.state.showTextArea,
 			name: this.state.name,
 			birthDate: this.state.birthDate,
@@ -110,7 +110,7 @@ class RegistrationForms extends React.Component {
 			class: this.state.class,
 			remarks: this.state.remarks,
 		};
-		return { ...obj };
+		return obj;
 	}
 	handleStudent(value) {
 		if (value.name === this.props.studentEdit) {
@@ -119,18 +119,18 @@ class RegistrationForms extends React.Component {
 	}
 
 	componentDidMount() {
-		if (this.props.studentEdit) {
-			if (localStorage.getItem("Students") != null) {
-				arrayKid = JSON.parse(localStorage.getItem("Students"));
-				let student = arrayKid.filter(this.handleStudent);
-				this.loadState(student[0]);
-			}
-		}
+		// if (this.props.studentEdit) {
+		// 	if (localStorage.getItem("Students") != null) {
+		// 		arrayKid = JSON.parse(localStorage.getItem("Students"));
+		// 		let student = arrayKid.filter(this.handleStudent);
+		// 		this.loadState(student[0]);
+		// 	}
+		// }
 	}
-	componentWillUnmount(){
+	componentWillUnmount() {
 		this.emptyState();
 	}
-	emptyState(){
+	emptyState() {
 		this.setState(() => ({
 			showTextArea: "",
 			name: "",
@@ -166,12 +166,17 @@ class RegistrationForms extends React.Component {
 
 	async handleSubmit(event) {
 		event.preventDefault();
-		console.log(event);
+		let student = this.saveState();
 
-		arrayKid.push(await this.saveState(arrayKid));
-
-		console.log(arrayKid);
-		localStorage.setItem("Students", JSON.stringify(arrayKid));
+		try {
+			const response = await fetch("/api/students", {
+				method: "POST",
+				body: JSON.stringify(student),
+			});
+			const json = await response.json();
+		} catch (err) {
+			console.error(err);
+		}
 	}
 
 	render() {
