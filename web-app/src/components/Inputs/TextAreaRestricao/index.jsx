@@ -20,7 +20,6 @@ class TextAreaRestricao extends React.Component {
 					multiline
 					required
 					minRows={4}
-					defaultValue="Default Value"
 					variant="outlined"
 					onChange={this.props.onChangeFoodDescription}
 					value={this.props.stateTextArea}
