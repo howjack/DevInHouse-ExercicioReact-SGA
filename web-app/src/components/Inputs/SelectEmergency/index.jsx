@@ -4,6 +4,29 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
 class InputRadioResponsavel extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			kindred: [],
+		};
+	}
+
+	async componentDidMount() {
+		try {
+			const response = await fetch("/api/kindred");
+			const json = await response.json();
+
+			this.setState(
+				() => ({
+					kindred: json.kindred,
+				})
+			);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	render() {
 		return (
 			<>
@@ -50,24 +73,13 @@ class InputRadioResponsavel extends React.Component {
 						}}
 					>
 						<option aria-label="None" value="" />
-						<option value="Pai" required>
-							Pai
-						</option>
-						<option value="Mãe" required>
-							Mãe
-						</option>
-						<option value="Irmãos" required>
-							Irmãos
-						</option>
-						<option value="Tios" required>
-							Tios
-						</option>
-						<option value="Avos" required>
-							Avós
-						</option>
-						<option value="Padrinhos" required>
-							Padrinhos
-						</option>
+						{this.state.kindred.map((kin, index) => {
+							return (
+								<option key={index} value={kin} required>
+									{kin}
+								</option>
+							);
+						})}
 					</Select>
 				</FormControl>
 			</>

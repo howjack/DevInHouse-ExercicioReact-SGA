@@ -13,6 +13,7 @@ class PAutorizadas extends React.Component {
 			autorizadaValue: "",
 			grauValue: "",
 			existList: true,
+			kindred: [],
 			autorizados: [],
 		};
 
@@ -57,11 +58,23 @@ class PAutorizadas extends React.Component {
 		}
 	}
 
-	componentDidMount(existList) {
+	async componentDidMount(existList) {
+		try {
+			const response = await fetch("/api/kindred");
+			const json = await response.json();
+
+			this.setState(
+				() => ({
+					kindred: json.kindred,
+				})
+			);
+		} catch (err) {
+			console.error(err);
+		}
+
 		if (this.props.stateAuthPersons !== "") {
 			this.setState(
-				() => ({ autorizados: this.props.stateAuthPersons }),
-				() => console.log("asd")
+				() => ({ autorizados: this.props.stateAuthPersons })
 			);
 		}
 		this.render();
@@ -113,10 +126,9 @@ class PAutorizadas extends React.Component {
 						}}
 					>
 						<option aria-label="None" value="" />
-						<option value="Pais">Pais</option>
-						<option value="Tios">Tios</option>
-						<option value="Avós">Avós</option>
-						<option value="Padrinhos">Padrinhos</option>
+						{this.state.kindred.map((kin, index) => {
+							return <option key={index} value={kin}>{kin}</option>;
+						})}
 					</Select>
 				</FormControl>
 				{/* <button onClick={this.handleBtn}>Add</button> */}
