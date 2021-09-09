@@ -18,9 +18,7 @@ class TextAreaObsevacoes extends React.Component {
 					id="outlined-multiline-static"
 					label="Descrição da restrição"
 					multiline
-					required
 					minRows={5}
-					defaultValue="Default Value"
 					variant="outlined"
 					onChange={this.props.onChangeRemarks}
 					value={this.props.stateRemarks}
