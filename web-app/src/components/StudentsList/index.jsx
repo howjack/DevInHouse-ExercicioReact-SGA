@@ -17,6 +17,8 @@ class StudentList extends React.Component {
 		};
 
 		this.onDelete = this.onDelete.bind(this);
+		this.resetData = this.resetData.bind(this);
+		this.resetPhone = this.resetPhone.bind(this);
 	}
 
 	onDelete(prop) {
@@ -28,41 +30,59 @@ class StudentList extends React.Component {
 			() => localStorage.setItem("Students", JSON.stringify(list))
 		);
 	}
+	resetResp(name, kin) {
+		if (name && kin) {
+			return `${name} - ${kin}`;
+		}
+	}
 
 	resetData(data) {
-		let date = new Date(data).getDate();
-		let month = new Date(data).getMonth();
-		let year = new Date(data).getFullYear();
-		if (month < 10) month = `0${month + 1}`;
+		if (data) {
+			let date = new Date(data).getDate();
+			let month = new Date(data).getMonth();
+			let year = new Date(data).getFullYear();
+			if (month < 10) month = `0${month + 1}`;
 
-		return `${date}/${month}/${year}`;
+			return `${date}/${month}/${year}`;
+		}
 	}
 	resetPhone(data) {
-		let numeroAjustado;
-		const textoHifem = data.replace(/[^\d]+/g, "");
-		if (data.length === 13) {
-			const parte0 = textoHifem.slice(2, 4);
-			const parte1 = textoHifem.slice(4, 9);
-			const parte2 = textoHifem.slice(9, 13);
-			numeroAjustado = `(${parte0})${parte1}-${parte2}`;
-		} else if (data.length === 12) {
-			const parte0 = textoHifem.slice(2, 4);
-			const parte1 = textoHifem.slice(4, 8);
-			const parte2 = textoHifem.slice(8, 12);
-			numeroAjustado = `(${parte0})${parte1}-${parte2}`;
+		if (data) {
+			let numeroAjustado;
+			const textoHifem = data.replace(/[^\d]+/g, "");
+			if (data.length === 13) {
+				const parte0 = textoHifem.slice(2, 4);
+				const parte1 = textoHifem.slice(4, 9);
+				const parte2 = textoHifem.slice(9, 13);
+				numeroAjustado = `(${parte0})${parte1}-${parte2}`;
+			} else if (data.length === 12) {
+				const parte0 = textoHifem.slice(2, 4);
+				const parte1 = textoHifem.slice(4, 8);
+				const parte2 = textoHifem.slice(8, 12);
+				numeroAjustado = `(${parte0})${parte1}-${parte2}`;
+			}
+			return numeroAjustado;
 		}
-		return numeroAjustado;
 	}
 
-	componentDidMount() {
-		this.setState(() => ({
-			students: JSON.parse(localStorage.getItem("Students")),
-		}));
+	async componentDidMount() {
+		// this.setState(() => ({
+		// 	students: JSON.parse(localStorage.getItem("Students")),
+		// }));
+		try {
+			const response = await fetch("/api/students");
+			const json = await response.json();
+
+			this.setState(() => ({
+				students: json.students,
+			}));
+		} catch (err) {
+			console.error(err);
+		}
 	}
 	render() {
-		console.log(this.state.students);
 		let show = false;
-		if (localStorage.getItem("Students") !== null) {
+		if (this.state.students !== null) {
 			show = true;
 		}
 		return (
@@ -91,10 +111,13 @@ class StudentList extends React.Component {
 											{this.resetData(student.birthDate)}
 										</TableCell>
 										<TableCell align="center">
-											{this.resetPhone(student.respWarningPhone)}
+											{this.resetPhone(student.respPhone)}
 										</TableCell>
 										<TableCell align="center">
-											{student.respWarningDegree}
+											{this.resetResp(
+												student.respName,
+												student.respWarningDegree
+											)}
 										</TableCell>
 										<TableCell align="center">
 											<IconButton
