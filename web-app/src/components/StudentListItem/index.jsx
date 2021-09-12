@@ -1,4 +1,7 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 
 class StudentListItem extends React.Component {
 	render() {
@@ -18,8 +21,24 @@ class StudentListItem extends React.Component {
 						<h4>Responsável: {this.props.avisar}</h4>
 					</div>
 				</div>
-				<button onClick={() => this.props.onEdit(this)}>Editar</button>
-				<button onClick={(e) => this.props.onDelete(this, e)}>Apagar</button>
+				<div>
+					<Button
+						variant="contained"
+						color="primary"
+						startIcon={<EditIcon />}
+						onClick={() => this.props.onEdit(this)}
+					>
+						Edit
+					</Button>
+					<Button
+						variant="contained"
+						color="secondary"
+						startIcon={<DeleteIcon />}
+						onClick={(e) => this.props.onDelete(this, e)}
+					>
+						Delete
+					</Button>
+				</div>
 			</li>
 		);
 	}

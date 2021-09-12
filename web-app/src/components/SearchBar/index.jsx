@@ -1,17 +1,22 @@
 import React from "react";
-import icon from "./outline_search_black_24dp.png"
+import SearchInput from "material-ui-search-bar";
 
 class SearchBar extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			value: "",
+		};
+	}
 	render() {
 		return (
 			<div className="searchBar">
-				<input
-					type="search"
-					className="search"
-					name="search"
-					placeholder="Procurar por nome"
-				></input>
-                <img src={icon} alt="" />
+				<SearchInput
+					value={this.state.value}
+					placeholder="Pesquise o nome..."
+					onChange={(newValue) => this.setState({ value: newValue })}
+				/>
 			</div>
 		);
 	}

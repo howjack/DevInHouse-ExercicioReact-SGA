@@ -1,10 +1,36 @@
 import React from "react";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 class InputRadioResponsavel extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			kindred: [],
+		};
+	}
+
+	async componentDidMount() {
+		try {
+			const response = await fetch("/api/kindred");
+			const json = await response.json();
+
+			this.setState(
+				() => ({
+					kindred: json.kindred,
+				})
+			);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+
 	render() {
 		return (
 			<>
-				<label htmlFor="avisar">Em caso de emergência avisar</label>
+				{/* <label htmlFor="avisar">Em caso de emergência avisar</label>
 				<select
 					name="avisar"
 					id="avisar"
@@ -31,7 +57,31 @@ class InputRadioResponsavel extends React.Component {
 					<option value="Padrinhos" required>
 						Padrinhos
 					</option>
-				</select>
+				</select> */}
+				<FormControl variant="outlined">
+					<InputLabel htmlFor="outlined-native-simple">Avisar</InputLabel>
+					<Select
+						className="select"
+						native
+						required
+						value={this.props.stateWarning}
+						onChange={this.props.onChangeRespWarningDegree}
+						label="Avisar"
+						inputProps={{
+							name: "Avisar",
+							id: "outlined-native-simple",
+						}}
+					>
+						<option aria-label="None" value="" />
+						{this.state.kindred.map((kin, index) => {
+							return (
+								<option key={index} value={kin} required>
+									{kin}
+								</option>
+							);
+						})}
+					</Select>
+				</FormControl>
 			</>
 		);
 	}

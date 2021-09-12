@@ -1,37 +1,12 @@
 import React from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/material.css";
 
 class InputPhoneResponsavel extends React.Component {
-	constructor(props) {
-		super(props);
-
-		this.mascaraDeTelefone = this.mascaraDeTelefone.bind(this);
-	}
-
-	mascaraDeTelefone(number) {
-		const textoAtual = number.target.value;
-
-		let textoAjustado;
-		const textoHifem = textoAtual.replace(/[^\d]+/g, "");
-		if (textoHifem.length === 11) {
-			const parte0 = textoHifem.slice(0, 2);
-			const parte1 = textoHifem.slice(2, 7);
-			const parte2 = textoHifem.slice(7, 11);
-			textoAjustado = `(${parte0})${parte1}-${parte2}`;
-
-			number.target.value = textoAjustado;
-		}
-		this.props.onChangeRespPhone(textoAjustado);
-	}
-	backspaceNumber(event) {
-		if (event.key === "Backspace") {
-			event.target.value = "";
-		}
-	}
-
 	render() {
 		return (
 			<>
-				<label htmlFor="telefoneResponsavel">{this.props.label}</label>
+				{/* <label htmlFor="telefoneResponsavel">{this.props.label}</label>
 				<input
 					type="tel"
 					maxLength="11"
@@ -42,6 +17,33 @@ class InputPhoneResponsavel extends React.Component {
 					onKeyDown={this.backspaceNumber}
 					value={this.props.statePhone}
 					required
+				/> */}
+				{/* <TextField
+					id="standard-required"
+					required
+					type="tel"
+					maxLength="11"
+					pattern="\([0-9]{2}\)[0-9]{4,6}-[0-9]{3,4}$"
+					label={this.props.label}
+					onKeyDown={this.backspaceNumber}
+					value={this.props.statePhone}
+					onChange={this.mascaraDeTelefone}
+				/> */}
+				<PhoneInput
+					inputProps={{
+						name: "phone",
+						required: true,
+					}}
+					containerStyle={{ width: "auto" }}
+					inputStyle={{ width: "210px", padding: "18.5px 14px 18.5px 45px" }}
+					specialLabel={this.props.label}
+					disableDropdown={true}
+					country={"br"}
+					placeholder=""
+					onlyCountries={["br"]}
+					localization={{ br: "Brasil" }}
+					value={this.props.statePhone}
+					onChange={this.props.onChangeRespPhone}
 				/>
 			</>
 		);

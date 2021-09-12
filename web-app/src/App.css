@@ -3,142 +3,69 @@ li {
 }
 
 .header {
-	position: relative;
 	font-size: larger;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	width: 100%;
+	margin-bottom: 20px;
 	text-align: center;
 }
 
 .studentsList {
-	margin: 0px 40px;
+	margin: 0px 5px;
 	padding: 0 10px;
-}
-.studentsList li {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 10px 0px;
-	padding: 0 10px;
-	background-color: rgba(0, 0, 0, 0.1);
-}
-.studentsList h2{
-  margin: 0;
-  width: 200px;
-}
-.listInformation {
-	display: flex;
-}
-.listInformation div {
-	display: flex;
-  flex-direction: column;
-  margin: 0px 15px;
-}
-.listInformation h4{
-  margin: 10px 5px;
-}
-.studentsList button {
-	padding: 10px;
+	min-width: 84%;
+	overflow-x: auto;
 }
 
-.searchBar{
+.searchBar {
 	margin: 0px 50px;
 	padding: 5px 0px;
 	position: relative;
 }
-.searchBar img{
-	position: absolute;
-	left: 100%;
-	transform: translateX(-100%);
-	top: 5%;
-	opacity: 0.4;
-}
-.searchBar img:hover{
-	opacity: 0.8;
-}
-.search{
-	font-size: large;
-	width: 100%;
-	padding: 10px;
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	border-radius: 5px;
-}
 
-.modal{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.transitionBtn{
+.form {
+	margin: 30px;
 	display: flex;
-	top: 55%;
-	transform: translateY(-50%);
-	left: 10%;
-	position: absolute;
-	opacity: 0.5;
-}
-.transitionBtn:hover{
-	opacity: 1;
-}
-#arrow{
-	transform: rotateZ(180deg);
-}
-
-
-form{
-	display: flex;
-	align-items: center;
-	align-content: center;
 	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
 }
-input{
-	max-width: 10rem;
-	padding: 5px 15px;
+.form div {
+	margin-bottom: 10px;
+}
+.listAutorizados {
 	font-size: large;
-}
-#turma{
 	text-align: center;
-	font-size: larger;
+	padding: 0;
 }
-label{
-	margin:auto;
-	margin-top: 8px;
+.select {
+	width: 100px;
 }
-#check{
+.detail-container {
+	margin: auto;
 	display: flex;
-    align-items: flex-end;
+	flex-direction: column;
+	align-items: center;
+	max-width: 500px;
 }
-.listAutorizados{
-	margin: 0;
-	padding: 0px 5px;
-	border: 1px solid rgba(0, 0, 0, 0.4);
-	border-radius: 5px;
-	width: 10rem;
+.personal-detail{
+	display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.personal-detail .MuiFormControl-root{
+	margin: 10px 15px;
+}
+.personal-detail .MuiTypography-displayBlock{
 	text-align: center;
-}
-.listAutorizados li{
-	margin: 3px;
-}
-button{
-	margin: 10px;
-	padding: 12px 30px;
-	background-color: rgba(66, 177, 44, 0.7);
-	color: rgb(39, 39, 39);
-	font-size: large;
-	border: 1px solid rgba(0, 0, 0, 0.1);
-}
-button:first-of-type{
-	padding: 3px 15px;
 }
 
-.label{
-	display: inline;
-	margin: auto;
+@media screen and (min-width: 680px) {
+	.studentsList {
+		margin: 0px 40px;
+		padding: 0 10px;
+		min-width: 84%;
+		overflow-x: auto;
+	}
 }

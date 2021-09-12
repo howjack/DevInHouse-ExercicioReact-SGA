@@ -1,37 +1,25 @@
 import React from 'react'
 import './App.css';
-import Consulta from './pages/Consulta';
-import Cadastro from './pages/Registration';
-
+import Header from './components/Header';
+import { Switch, Route, BrowserRouter } from "react-router-dom";
+import Consulta from './pages/Consulta'
+import Cadastro from './pages/Registration'
+import Detail from './pages/Detail';
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = { page: true, student: "" }
-
-    this.studentEdit = "";
-    this.handleChange = this.handleChange.bind(this)
-    this.onEdit = this.onEdit.bind(this)
-  }
-
-  handleChange() {
-    this.setState(() => ({ page: !this.state.page }))
-  }
-  onEdit(event) {
-    this.setState(() => ({ student: event.props.nome }),
-      () => {
-        this.setState(() => ({ page: !this.state.page }))
-      }
-    )
-  }
 
   render() {
     return (
-      <>
-        {this.state.page && <Consulta onTransition={this.handleChange} onEdit={this.onEdit} />}
-        {!this.state.page && <Cadastro onTransition={this.handleChange} studentEdit={this.state.student} />}
-      </>)
-  }
+        <BrowserRouter>
+          <Header />
+          <Switch>
+            <Route path="/" exact />
+            <Route path="/consulta" component={Consulta} />
+            <Route path="/cadastro" component={Cadastro} />
+            <Route path="/detalhe/:id" component={Detail} />
+          </Switch>
+        </BrowserRouter>
+    );
+  };
 }
 
 export default App;
