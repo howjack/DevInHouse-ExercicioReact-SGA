@@ -8,7 +8,7 @@ class Consulta extends React.Component {
 		return (
 			<>
 				<SearchBar />
-				<StudentList onEdit={this.props.onEdit}/>
+				<StudentList />
 			</>
 		);
 	}
