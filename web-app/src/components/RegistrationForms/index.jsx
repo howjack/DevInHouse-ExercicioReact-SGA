@@ -173,7 +173,7 @@ class RegistrationForms extends React.Component {
 				method: "POST",
 				body: JSON.stringify(student),
 			});
-			const json = await response.json();
+			await response.json();
 		} catch (err) {
 			console.error(err);
 		}
