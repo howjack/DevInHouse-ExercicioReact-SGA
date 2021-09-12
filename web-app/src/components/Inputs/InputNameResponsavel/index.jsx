@@ -20,6 +20,7 @@ class InputNameResponsavel extends React.Component {
 					value={this.props.stateNameResp}
 					onChange={this.props.onChangeRespName}
 					variant="outlined"
+					required
 				/>
 			</>
 		);

@@ -30,8 +30,12 @@ class InputPhoneResponsavel extends React.Component {
 					onChange={this.mascaraDeTelefone}
 				/> */}
 				<PhoneInput
-					containerStyle={{width:'auto'}}
-					inputStyle={{width:'210px', padding: '18.5px 14px 18.5px 45px'}}
+					inputProps={{
+						name: "phone",
+						required: true,
+					}}
+					containerStyle={{ width: "auto" }}
+					inputStyle={{ width: "210px", padding: "18.5px 14px 18.5px 45px" }}
 					specialLabel={this.props.label}
 					disableDropdown={true}
 					country={"br"}

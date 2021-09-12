@@ -28,6 +28,7 @@ class InputDate extends React.Component {
 						onChange={this.props.onChangeBirthDate}
 						variant="inline"
 						inputVariant="outlined"
+						required
 					/>
 				</MuiPickersUtilsProvider>
 			</>
