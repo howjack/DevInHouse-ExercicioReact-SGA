@@ -7,6 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import { withRouter } from "react-router-dom";
 
 class StudentList extends React.Component {
 	constructor(props) {
@@ -21,15 +22,6 @@ class StudentList extends React.Component {
 		this.resetPhone = this.resetPhone.bind(this);
 	}
 
-	onDelete(prop) {
-		let index = prop.props.id;
-		let list = this.state.students;
-		list.splice([index], 1);
-		this.setState(
-			() => ({ students: list }),
-			() => localStorage.setItem("Students", JSON.stringify(list))
-		);
-	}
 	resetResp(name, kin) {
 		if (name && kin) {
 			return `${name} - ${kin}`;
@@ -70,7 +62,9 @@ class StudentList extends React.Component {
 		// 	students: JSON.parse(localStorage.getItem("Students")),
 		// }));
 		try {
-			const response = await fetch("/api/students");
+			const response = await fetch("/api/students", {
+				method: "GET",
+			});
 			const json = await response.json();
 
 			this.setState(() => ({
@@ -80,6 +74,26 @@ class StudentList extends React.Component {
 			console.error(err);
 		}
 	}
+	onDetail(e, id) {
+		if (e.target.matches("td") || e.target.matches("th")) {
+			this.props.history.push(`/detalhe/${id}`)
+		}
+	}
+
+	async onDelete(id) {
+		try {
+			const response = await fetch(`/api/students/${id}`, {
+				method: "DELETE",
+			});
+			this.setState(() => ({
+				students: this.state.students.filter((student) => student.id !== id),
+			}));
+			console.log(response);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+	onEdit() {}
 	render() {
 		let show = false;
 		if (this.state.students !== null) {
@@ -87,65 +101,67 @@ class StudentList extends React.Component {
 		}
 		return (
 			<ul className="studentsList">
-				{
-					show && (
-						<Table aria-label="simple table" className="listaAlunos">
-							<TableHead>
-								<TableRow>
-									<TableCell>Nome Completo</TableCell>
-									<TableCell align="center">Turma</TableCell>
-									<TableCell align="center">Aniversario</TableCell>
-									<TableCell align="center">Telefone do Responsavel</TableCell>
-									<TableCell align="center">Responsavel</TableCell>
-									<TableCell align="center">Actions</TableCell>
+				{show && (
+					<Table aria-label="simple table" className="listaAlunos">
+						<TableHead>
+							<TableRow>
+								<TableCell>Nome Completo</TableCell>
+								<TableCell align="center">Turma</TableCell>
+								<TableCell align="center">Aniversario</TableCell>
+								<TableCell align="center">Telefone do Responsavel</TableCell>
+								<TableCell align="center">Responsavel</TableCell>
+								<TableCell align="center">Actions</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{this.state.students.map((student) => (
+								<TableRow
+									key={student.name}
+									hover={true}
+									to="/cadastro"
+									onClick={(e) => this.onDetail(e, student.id)}
+								>
+									<TableCell component="th" scope="row">
+										{student.name}
+									</TableCell>
+									<TableCell align="center">{student.class}</TableCell>
+									<TableCell align="center">
+										{this.resetData(student.birthDate)}
+									</TableCell>
+									<TableCell align="center">
+										{this.resetPhone(student.respPhone)}
+									</TableCell>
+									<TableCell align="center">
+										{this.resetResp(
+											student.respName,
+											student.respWarningDegree
+										)}
+									</TableCell>
+									<TableCell align="center">
+										<IconButton
+											aria-label="delete"
+											color="primary"
+											to="/cadastro"
+											disabled
+										>
+											<EditIcon />
+										</IconButton>
+										<IconButton
+											aria-label="delete"
+											color="secondary"
+											onClick={() => this.onDelete(student.id)}
+										>
+											<DeleteIcon />
+										</IconButton>
+									</TableCell>
 								</TableRow>
-							</TableHead>
-							<TableBody>
-								{this.state.students.map((student) => (
-									<TableRow key={student.name}>
-										<TableCell component="th" scope="row">
-											{student.name}
-										</TableCell>
-										<TableCell align="center">{student.class}</TableCell>
-										<TableCell align="center">
-											{this.resetData(student.birthDate)}
-										</TableCell>
-										<TableCell align="center">
-											{this.resetPhone(student.respPhone)}
-										</TableCell>
-										<TableCell align="center">
-											{this.resetResp(
-												student.respName,
-												student.respWarningDegree
-											)}
-										</TableCell>
-										<TableCell align="center">
-											<IconButton
-												aria-label="delete"
-												color="primary"
-												onClick={() => this.props.onEdit(this)}
-											>
-												<EditIcon />
-											</IconButton>
-											<IconButton
-												aria-label="delete"
-												color="secondary"
-												onClick={(e) => this.props.onDelete(this, e)}
-											>
-												<DeleteIcon />
-											</IconButton>
-										</TableCell>
-									</TableRow>
-								))}
-							</TableBody>
-						</Table>
-					)
-					// 	);
-					// })
-				}
+							))}
+						</TableBody>
+					</Table>
+				)}
 			</ul>
 		);
 	}
 }
 
-export default StudentList;
+export default withRouter(StudentList);
