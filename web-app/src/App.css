@@ -3,7 +3,6 @@ li {
 }
 
 .header {
-	position: relative;
 	font-size: larger;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	width: 100%;
@@ -12,34 +11,61 @@ li {
 }
 
 .studentsList {
-	margin: 0px 40px;
+	margin: 0px 5px;
 	padding: 0 10px;
+	min-width: 84%;
+	overflow-x: auto;
 }
 
-.searchBar{
+.searchBar {
 	margin: 0px 50px;
 	padding: 5px 0px;
 	position: relative;
 }
 
-.form{
+.form {
 	margin: 30px;
 	display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
 }
-.form div{
+.form div {
 	margin-bottom: 10px;
 }
-.listAutorizados{
+.listAutorizados {
 	font-size: large;
 	text-align: center;
 	padding: 0;
 }
-.select{
+.select {
 	width: 100px;
 }
-.listaAlunos{
-	overflow: hidden;
+.detail-container {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 500px;
+}
+.personal-detail{
+	display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.personal-detail .MuiFormControl-root{
+	margin: 10px 15px;
+}
+.personal-detail .MuiTypography-displayBlock{
+	text-align: center;
+}
+
+@media screen and (min-width: 680px) {
+	.studentsList {
+		margin: 0px 40px;
+		padding: 0 10px;
+		min-width: 84%;
+		overflow-x: auto;
+	}
 }
