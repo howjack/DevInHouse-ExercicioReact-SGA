@@ -17,11 +17,9 @@ class SelectTurma extends React.Component {
 			const response = await fetch("/api/degrees");
 			const json = await response.json();
 
-			this.setState(
-				() => ({
-					degrees: json.degrees,
-				})
-			);
+			this.setState(() => ({
+				degrees: json.degrees,
+			}));
 		} catch (err) {
 			console.error(err);
 		}
