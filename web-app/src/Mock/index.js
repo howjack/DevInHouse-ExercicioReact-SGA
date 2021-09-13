@@ -11,6 +11,7 @@ createServer({
         server.create("student", {
             id: 0,
             showTextArea: true,
+            notes: "",
             name: "Phelipe Alves Fagundes",
             birthDate: "1998-06-26T03:00:00.000Z",
             respName: "Valmor Fagundes",
@@ -35,6 +36,7 @@ createServer({
         server.create("student", {
             id: 1,
             showTextArea: true,
+            notes: "Mau Aluno",
             name: "Matheus Khorb",
             birthDate: "1999-03-20T03:00:00.000Z",
             respName: "Mulato Khorb",
@@ -59,6 +61,7 @@ createServer({
         server.create("student", {
             id: 2,
             showTextArea: false,
+            notes: "",
             name: "Cleverton Ruppenthal",
             birthDate: "1999-04-16T03:00:00.000Z",
             respName: "Rozeli Ruppenthal",
@@ -146,6 +149,13 @@ createServer({
             let email = request.params.email
             let get = schema.employees.findBy({ email: email})
             return get.attrs
+        })
+        this.patch("/employees/:id", (schema, request) => {
+            let newAttrs = JSON.parse(request.requestBody)
+            let id = request.params.id
+            let employee = schema.employees.find(id)
+
+            return employee.update(newAttrs)
         })
         
 
