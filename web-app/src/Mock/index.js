@@ -102,7 +102,7 @@ createServer({
         server.create("employee", {
             id: 3,
             name: "Eliseu Oliveira Peres Edson Reis",
-            email: "eliseu_gatinho123@gmail.com",
+            email: "eliseu@gmail.com",
             role: "Diretor",
             classes: [101],
             password: "12345"
