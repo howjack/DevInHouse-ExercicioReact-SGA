@@ -86,7 +86,7 @@ createServer({
         server.create("employee", {
             id: 1,
             name: "Phelipe Alves Fagundes",
-            email: "phelipe@gmail.com",
+            email: "phelipe@sga.com",
             role: "Professor",
             classes: [104, 202],
             password: "12345"
@@ -94,7 +94,7 @@ createServer({
         server.create("employee", {
             id: 2,
             name: "Luna Almeida",
-            email: "luna@gmail.com",
+            email: "luna@sga.com",
             role: "Coordenador",
             classes: [204],
             password: "12345"
@@ -102,7 +102,7 @@ createServer({
         server.create("employee", {
             id: 3,
             name: "Eliseu Oliveira Peres Edson Reis",
-            email: "eliseu@gmail.com",
+            email: "eliseu@sga.com",
             role: "Diretor",
             classes: [101],
             password: "12345"
