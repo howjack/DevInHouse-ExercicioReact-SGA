@@ -4,12 +4,14 @@ console.log("MOCK");
 createServer({
     models: {
         student: Model,
+        employee: Model
     },
 
     seeds(server) {
         server.create("student", {
             id: 0,
             showTextArea: true,
+            notes: "",
             name: "Phelipe Alves Fagundes",
             birthDate: "1998-06-26T03:00:00.000Z",
             respName: "Valmor Fagundes",
@@ -34,6 +36,7 @@ createServer({
         server.create("student", {
             id: 1,
             showTextArea: true,
+            notes: "Mau Aluno",
             name: "Matheus Khorb",
             birthDate: "1999-03-20T03:00:00.000Z",
             respName: "Mulato Khorb",
@@ -58,6 +61,7 @@ createServer({
         server.create("student", {
             id: 2,
             showTextArea: false,
+            notes: "",
             name: "Cleverton Ruppenthal",
             birthDate: "1999-04-16T03:00:00.000Z",
             respName: "Rozeli Ruppenthal",
@@ -78,6 +82,30 @@ createServer({
             ],
             class: "301",
             remarks: "Nerd"
+        })
+        server.create("employee", {
+            id: 1,
+            name: "Phelipe Alves Fagundes",
+            email: "phelipe44@gmail.com",
+            role: "Professor",
+            classes: [104, 202],
+            password: "12345"
+        })
+        server.create("employee", {
+            id: 2,
+            name: "Luna Almeida",
+            email: "luna@gmail.com",
+            role: "Coordenador",
+            classes: [204],
+            password: "12345"
+        })
+        server.create("employee", {
+            id: 3,
+            name: "Eliseu Oliveira Peres Edson Reis",
+            email: "eliseu_gatinho123@gmail.com",
+            role: "Diretor",
+            classes: [101],
+            password: "12345"
         })
     },
 
@@ -117,7 +145,19 @@ createServer({
         })
 
 
+        this.get("/employees/:email", (schema, request) => {
+            let email = request.params.email
+            let get = schema.employees.findBy({ email: email})
+            return get.attrs
+        })
+        this.patch("/employees/:id", (schema, request) => {
+            let newAttrs = JSON.parse(request.requestBody)
+            let id = request.params.id
+            let employee = schema.employees.find(id)
 
+            return employee.update(newAttrs)
+        })
+        
 
         this.get("/kindred", () => {
             return {

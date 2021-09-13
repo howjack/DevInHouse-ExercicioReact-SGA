@@ -8,13 +8,16 @@ import TableRow from "@material-ui/core/TableRow";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { withRouter } from "react-router-dom";
+import { StudentContext } from "../../Context/StudentProvider";
 
 class StudentList extends React.Component {
+	static contextType = StudentContext;
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			students: [],
+			test: ""
 		};
 
 		this.onDelete = this.onDelete.bind(this);
@@ -58,9 +61,6 @@ class StudentList extends React.Component {
 	}
 
 	async componentDidMount() {
-		// this.setState(() => ({
-		// 	students: JSON.parse(localStorage.getItem("Students")),
-		// }));
 		try {
 			const response = await fetch("/api/students", {
 				method: "GET",
@@ -93,7 +93,11 @@ class StudentList extends React.Component {
 			console.log(err);
 		}
 	}
-	onEdit() {}
+	async onEdit(student) {
+		const {setStudent} = this.context
+		await setStudent(student)
+		this.props.history.push(`/cadastro`)
+	}
 	render() {
 		let show = false;
 		if (this.state.students !== null) {
@@ -139,10 +143,9 @@ class StudentList extends React.Component {
 									</TableCell>
 									<TableCell align="center">
 										<IconButton
-											aria-label="delete"
+											aria-label="edit"
 											color="primary"
-											to="/cadastro"
-											disabled
+											onClick={() => this.onEdit(student)}
 										>
 											<EditIcon />
 										</IconButton>

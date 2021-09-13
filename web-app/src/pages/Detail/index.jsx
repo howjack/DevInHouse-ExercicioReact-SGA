@@ -1,4 +1,5 @@
 import {
+	Button,
 	List,
 	ListItem,
 	ListItemText,
@@ -7,34 +8,54 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { withRouter } from "react-router";
+import { APIContext } from "../../Context/ApiProvider";
 
 class Detail extends React.Component {
+	static contextType = APIContext;
 	constructor(props) {
 		super(props);
 		this.state = {
-			student: {},
+			student: null,
+			notes: null,
 		};
 
 		this.resetData = this.resetData.bind(this);
+		this.onNotes = this.onNotes.bind(this);
+		this.handleChangeNotes = this.handleChangeNotes.bind(this);
 	}
 
 	async componentDidMount() {
+		const { api } = this.context;
 		const id = this.props.match.params.id;
 		try {
-			const response = await fetch(`/api/students/${id}`, {
-				method: "GET",
-			});
-			const json = await response.json();
+			const json = await api.get(`/api/students/${id}`);
 
 			this.setState(
 				() => ({
 					student: json.student,
+					notes: json.student.notes,
 				}),
 				() => console.log(this.state.student)
 			);
 		} catch (err) {
 			console.error(err);
 		}
+	}
+	async onNotes() {
+		const { api } = this.context;
+		const id = this.props.match.params.id;
+		try {
+			const json = await api.patch(`/api/students/${id}`, {
+				notes: this.state.notes
+			});
+
+			console.log(json);
+		} catch (err) {
+			console.error(err);
+		}
+	}
+	handleChangeNotes(event) {
+		this.setState({notes: event.target.value})
 	}
 
 	resetData(data) {
@@ -50,7 +71,7 @@ class Detail extends React.Component {
 
 	render() {
 		let exist = false;
-		if (this.state.student.id !== undefined) {
+		if (this.state.student !== null) {
 			exist = true;
 		}
 		return (
@@ -77,6 +98,25 @@ class Detail extends React.Component {
 								}}
 								variant="outlined"
 							/>
+							<div className="notes">
+								<TextField
+									id="outlined-multiline-static"
+									label="Detalhes do Aluno"
+									multiline
+									minRows={5}
+									onChange={this.handleChangeNotes}
+									defaultValue={this.state.notes}
+									variant="outlined"
+								/>
+								<Button
+									variant="contained"
+									color="primary"
+									size="large"
+									onClick={this.onNotes}
+								>
+									Salvar
+								</Button>
+							</div>
 						</div>
 						<h2>Dados Pessoais</h2>
 						<div className="personal-detail">

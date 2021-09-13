@@ -4,10 +4,13 @@ import './index.css';
 import App from './App';
 import './Mock'
 import reportWebVitals from './reportWebVitals';
+import { EmployeeProvider } from './Context/EmployeeProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <EmployeeProvider>
+      <App />
+    </EmployeeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
