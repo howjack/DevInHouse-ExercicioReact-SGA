@@ -26,17 +26,13 @@ $ npm start
 # A aplicação será aberta na porta:3000 - acesse http://localhost:3000
 ```
 #### 📧Contas de email para fazer o Login
+```
+#Emails: 
+  phelipe@sga.com - Professor
+  luna@sga.com  - Coordenador
+  eliseu@sga.com - Diretor
 
-##### Email: 
-
-  phelipe@sga.com
-  
-  luna@sga.com
-  
-  eliseu@sga.com
-
-##### Senha de todos: 
-
-12345 
-
+#Senha de todos: 
+  12345 
+```
 
