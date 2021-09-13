@@ -4,6 +4,7 @@ console.log("MOCK");
 createServer({
     models: {
         student: Model,
+        employee: Model
     },
 
     seeds(server) {
@@ -79,6 +80,30 @@ createServer({
             class: "301",
             remarks: "Nerd"
         })
+        server.create("employee", {
+            id: 1,
+            name: "Phelipe Alves Fagundes",
+            email: "phelipe44@gmail.com",
+            role: "Professor",
+            classes: [104, 202],
+            password: "12345"
+        })
+        server.create("employee", {
+            id: 2,
+            name: "Luna Almeida",
+            email: "luna@gmail.com",
+            role: "Coordenador",
+            classes: [204],
+            password: "12345"
+        })
+        server.create("employee", {
+            id: 3,
+            name: "Eliseu Oliveira Peres Edson Reis",
+            email: "eliseu_gatinho123@gmail.com",
+            role: "Diretor",
+            classes: [101],
+            password: "12345"
+        })
     },
 
     routes() {
@@ -117,7 +142,12 @@ createServer({
         })
 
 
-
+        this.get("/employees/:email", (schema, request) => {
+            let email = request.params.email
+            let get = schema.employees.findBy({ email: email})
+            return get.attrs
+        })
+        
 
         this.get("/kindred", () => {
             return {
