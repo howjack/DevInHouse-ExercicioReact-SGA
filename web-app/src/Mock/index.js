@@ -39,7 +39,7 @@ createServer({
             notes: "Mau Aluno",
             name: "Matheus Khorb",
             birthDate: "1999-03-20T03:00:00.000Z",
-            respName: "Mulato Khorb",
+            respName: "Mufasa Khorb",
             respPhone: "5547888888888",
             respWarningDegree: "Pai",
             respWarningPhone: "5547888888888",
@@ -86,7 +86,7 @@ createServer({
         server.create("employee", {
             id: 1,
             name: "Phelipe Alves Fagundes",
-            email: "phelipe44@gmail.com",
+            email: "phelipe@gmail.com",
             role: "Professor",
             classes: [104, 202],
             password: "12345"
