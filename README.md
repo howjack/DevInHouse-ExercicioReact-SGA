@@ -12,7 +12,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/howjack/DevInHouse-ExercicioReact-SGA
+$ git clone https://github.com/howjack/React-SGA
 
 # Acesse a pasta do projeto no seu terminal/cmd
 $ cd web-app
