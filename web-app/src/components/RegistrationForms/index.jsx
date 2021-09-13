@@ -11,10 +11,12 @@ import SelectTurma from "../Inputs/SelectTurma";
 import TextAreaObsevacoes from "../Inputs/TextAreaObservacoes";
 import PAutorizadas from "../PessoasAutorizadas";
 import BtnSave from "../Inputs/BtnSave";
+import { StudentContext } from "../../Context/StudentProvider";
 
 // let arrayKid = [];
 
 class RegistrationForms extends React.Component {
+	static contextType = StudentContext;
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -118,17 +120,16 @@ class RegistrationForms extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		// if (this.props.studentEdit) {
-		// 	if (localStorage.getItem("Students") != null) {
-		// 		arrayKid = JSON.parse(localStorage.getItem("Students"));
-		// 		let student = arrayKid.filter(this.handleStudent);
-		// 		this.loadState(student[0]);
-		// 	}
-		// }
+	async componentDidMount() {
+		const { student } = this.context;
+		if (student !== null) {
+				await this.loadState(student);
+		}
 	}
 	componentWillUnmount() {
 		this.emptyState();
+		const { setStudent } = this.context;
+		setStudent(null);
 	}
 	emptyState() {
 		this.setState(() => ({
@@ -147,8 +148,8 @@ class RegistrationForms extends React.Component {
 		}));
 	}
 
-	loadState(kid) {
-		this.setState(() => ({
+	async loadState(kid) {
+		await this.setState(() => ({
 			showTextArea: kid.showTextArea,
 			name: kid.name,
 			birthDate: kid.birthDate,

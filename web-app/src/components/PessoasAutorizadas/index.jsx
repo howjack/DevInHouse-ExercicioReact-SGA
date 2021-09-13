@@ -58,39 +58,30 @@ class PAutorizadas extends React.Component {
 		}
 	}
 
-	async componentDidMount(existList) {
+	async componentDidMount() {
+		if (this.props.stateAuthPersons !== null) {
+			this.setState(
+				() => (
+					{ autorizados: this.props.stateAuthPersons }
+				)
+			);
+		}
 		try {
 			const response = await fetch("/api/kindred");
 			const json = await response.json();
 
-			this.setState(
-				() => ({
-					kindred: json.kindred,
-				})
-			);
+			this.setState(() => ({
+				kindred: json.kindred,
+			}));
 		} catch (err) {
 			console.error(err);
 		}
-
-		if (this.props.stateAuthPersons !== "") {
-			this.setState(
-				() => ({ autorizados: this.props.stateAuthPersons })
-			);
-		}
-		this.render();
 	}
 	forceUpdate() {}
 
 	render() {
 		return (
 			<>
-				{/* <label htmlFor="autorizada">Nome da pessoa Autorizada</label>
-				<input
-					type="text"
-					value={this.state.autorizadaValue}
-					onChange={this.handleChange}
-					name="autorizada"
-				/> */}
 				<TextField
 					id="outlined-basic"
 					label="Pessoa Autorizada"
@@ -127,7 +118,11 @@ class PAutorizadas extends React.Component {
 					>
 						<option aria-label="None" value="" />
 						{this.state.kindred.map((kin, index) => {
-							return <option key={index} value={kin}>{kin}</option>;
+							return (
+								<option key={index} value={kin}>
+									{kin}
+								</option>
+							);
 						})}
 					</Select>
 				</FormControl>
@@ -135,7 +130,7 @@ class PAutorizadas extends React.Component {
 				<Button variant="contained" onClick={this.handleBtn}>
 					Adicionar
 				</Button>
-				<ul className={this.state.existList ? "listAutorizados" : ""}>
+				<ul className="listAutorizados">
 					{this.state.autorizados.map((item, index) => {
 						return (
 							<li
