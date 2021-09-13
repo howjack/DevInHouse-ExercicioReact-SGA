@@ -54,6 +54,11 @@ li {
     flex-wrap: wrap;
     justify-content: center;
 }
+.personal-detail .notes{
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+}
 .personal-detail .MuiFormControl-root{
 	margin: 10px 15px;
 }
