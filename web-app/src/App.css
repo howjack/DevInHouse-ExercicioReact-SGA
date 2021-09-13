@@ -60,6 +60,29 @@ li {
 .personal-detail .MuiTypography-displayBlock{
 	text-align: center;
 }
+.login-container{
+	position: relative;
+}
+.login{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translateY(-50%) translateX(-50%);
+	margin: auto;
+	width: 100%;
+    max-width: 30rem;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.login .MuiTextField-root{
+	margin: 10px;
+}
+.login .MuiButton-root{
+	margin: 20px;
+}
 
 @media screen and (min-width: 680px) {
 	.studentsList {
