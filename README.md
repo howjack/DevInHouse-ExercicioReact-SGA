@@ -8,6 +8,8 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ### 🎲 Rodando a aplicação web (Front End)
 
+🚧 Em construção... 🚧
+
 ```bash
 # Clone este repositório
 $ git clone https://github.com/howjack/DevInHouse-ExercicioReact-SGA
@@ -23,3 +25,18 @@ $ npm start
 
 # A aplicação será aberta na porta:3000 - acesse http://localhost:3000
 ```
+#### 📧Contas de email para fazer o Login
+
+##### Email: 
+
+  phelipe@sga.com
+  
+  luna@sga.com
+  
+  eliseu@sga.com
+
+##### Senha de todos: 
+
+12345 
+
+
