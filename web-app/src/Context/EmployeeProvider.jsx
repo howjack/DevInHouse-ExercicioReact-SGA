@@ -13,7 +13,7 @@ class EmployeeProvider extends React.Component {
 	}
 
 	setEmployee = (employee) => {
-		this.setState({ employee }, () => console.log(this.state.employee));
+		this.setState({ employee });
 	};
 	render() {
 		return (
