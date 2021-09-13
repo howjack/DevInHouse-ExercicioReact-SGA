@@ -32,6 +32,7 @@ class Header extends React.Component {
 					<Tab label="Inicio" to="/" component={Link} />
 					<Tab label="Lista de alunos" to="/consulta" component={Link} />
 					<Tab label="Cadastramento" to="/cadastro" component={Link} />
+					<Tab label="Seu Perfil" to="/employee" component={Link} />
 				</Tabs>
 			</Paper>
 		);
