@@ -31,7 +31,7 @@ createServer({
                 }
             ],
             class: "202",
-            remarks: "Gordão"
+            remarks: "Gordinho"
         })
         server.create("student", {
             id: 1,
@@ -43,7 +43,7 @@ createServer({
             respPhone: "5547888888888",
             respWarningDegree: "Pai",
             respWarningPhone: "5547888888888",
-            foodDescription: "Culher",
+            foodDescription: "Colher",
             photoAuthorization: false,
             authorizedPersons: [
                 {
@@ -56,7 +56,7 @@ createServer({
                 }
             ],
             class: "201",
-            remarks: "14,5"
+            remarks: ""
         })
         server.create("student", {
             id: 2,
@@ -68,8 +68,8 @@ createServer({
             respPhone: "5547777777777",
             respWarningDegree: "Mãe",
             respWarningPhone: "5547777777777",
-            foodDescription: "", //
-            photoAuthorization: true, //
+            foodDescription: "",
+            photoAuthorization: true, 
             authorizedPersons: [
                 {
                     name: "Silverio",
