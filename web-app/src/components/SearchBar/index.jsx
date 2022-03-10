@@ -1,25 +1,17 @@
 import React from "react";
 import SearchInput from "material-ui-search-bar";
+import { useState } from "react";
 
-class SearchBar extends React.Component {
-	constructor(props) {
-		super(props);
+export default function SearchBar() {
+	const [search, setSearch] = useState("");
 
-		this.state = {
-			value: "",
-		};
-	}
-	render() {
-		return (
-			<div className="searchBar">
-				<SearchInput
-					value={this.state.value}
-					placeholder="Pesquise o nome..."
-					onChange={(newValue) => this.setState({ value: newValue })}
-				/>
-			</div>
-		);
-	}
+	return (
+		<div className="searchBar">
+			<SearchInput
+				value={search}
+				placeholder="Pesquise o nome..."
+				onChange={(newValue) => setSearch(newValue)}
+			/>
+		</div>
+	);
 }
-
-export default SearchBar;

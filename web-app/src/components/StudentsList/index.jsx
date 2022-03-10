@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,31 +7,25 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { StudentContext } from "../../Context/StudentProvider";
+import { APIContext } from "../../Context/ApiProvider";
 
-class StudentList extends React.Component {
-	static contextType = StudentContext;
-	constructor(props) {
-		super(props);
+export default function StudentList() {
+	const history = useHistory();
+	const studentContext = useContext(StudentContext);
+	const apiContext = useContext(APIContext);
 
-		this.state = {
-			students: [],
-			test: ""
-		};
+	const [students, setStudents] = useState(null);
+	const [show, setShow] = useState(false);
 
-		this.onDelete = this.onDelete.bind(this);
-		this.resetData = this.resetData.bind(this);
-		this.resetPhone = this.resetPhone.bind(this);
-	}
-
-	resetResp(name, kin) {
+	function resetResp(name, kin) {
 		if (name && kin) {
 			return `${name} - ${kin}`;
 		}
 	}
 
-	resetData(data) {
+	function resetData(data) {
 		if (data) {
 			let date = new Date(data).getDate();
 			let month = new Date(data).getMonth();
@@ -41,7 +35,7 @@ class StudentList extends React.Component {
 			return `${date}/${month}/${year}`;
 		}
 	}
-	resetPhone(data) {
+	function resetPhone(data) {
 		if (data) {
 			let numeroAjustado;
 			const textoHifem = data.replace(/[^\d]+/g, "");
@@ -60,111 +54,103 @@ class StudentList extends React.Component {
 		}
 	}
 
-	async componentDidMount() {
-		try {
-			const response = await fetch("/api/students", {
-				method: "GET",
-			});
-			const json = await response.json();
+	useEffect(() => {
+		async function fetchData() {
+			const { api } = apiContext;
+			try {
+				const response = await api.get("/api/students");
 
-			this.setState(() => ({
-				students: json.students,
-			}));
-		} catch (err) {
-			console.error(err);
+				console.log(response);
+				setStudents(response.students);
+
+				setShow(true);
+			} catch (err) {
+				console.error(err);
+			}
 		}
-	}
-	onDetail(e, id) {
+		fetchData();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	function onDetail(e, id) {
 		if (e.target.matches("td") || e.target.matches("th")) {
-			this.props.history.push(`/detalhe/${id}`)
+			history.push(`/detalhe/${id}`);
 		}
 	}
 
-	async onDelete(id) {
+	async function onDelete(id) {
 		try {
-			const response = await fetch(`/api/students/${id}`, {
+			await fetch(`/api/students/${id}`, {
 				method: "DELETE",
 			});
-			this.setState(() => ({
-				students: this.state.students.filter((student) => student.id !== id),
-			}));
-			console.log(response);
+			setStudents(() => {
+				return students.filter((student) => student.id !== id);
+			});
 		} catch (err) {
 			console.log(err);
 		}
 	}
-	async onEdit(student) {
-		const {setStudent} = this.context
-		await setStudent(student)
-		this.props.history.push(`/cadastro`)
+	async function onEdit(student) {
+		const { setStudent } = studentContext;
+		await setStudent(student);
+		history.push(`/cadastro`);
 	}
-	render() {
-		let show = false;
-		if (this.state.students !== null) {
-			show = true;
-		}
-		return (
-			<ul className="studentsList">
-				{show && (
-					<Table aria-label="simple table" className="listaAlunos">
-						<TableHead>
-							<TableRow>
-								<TableCell>Nome Completo</TableCell>
-								<TableCell align="center">Turma</TableCell>
-								<TableCell align="center">Aniversario</TableCell>
-								<TableCell align="center">Telefone do Responsavel</TableCell>
-								<TableCell align="center">Responsavel</TableCell>
-								<TableCell align="center">Actions</TableCell>
+	return (
+		<ul className="studentsList">
+			{show && (
+				<Table aria-label="simple table" className="listaAlunos">
+					<TableHead>
+						<TableRow>
+							<TableCell>Nome Completo</TableCell>
+							<TableCell align="center">Turma</TableCell>
+							<TableCell align="center">Aniversario</TableCell>
+							<TableCell align="center">Telefone do Responsável</TableCell>
+							<TableCell align="center">Responsável</TableCell>
+							<TableCell align="center">Actions</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{students.map((student) => (
+							<TableRow
+								key={student.name}
+								hover={true}
+								to="/cadastro"
+								onClick={(e) => onDetail(e, student.id)}
+							>
+								<TableCell component="th" scope="row">
+									{student.name}
+								</TableCell>
+								<TableCell align="center">{student.class}</TableCell>
+								<TableCell align="center">
+									{resetData(student.birthDate)}
+								</TableCell>
+								<TableCell align="center">
+									{resetPhone(student.respPhone)}
+								</TableCell>
+								<TableCell align="center">
+									{resetResp(student.respName, student.respWarningDegree)}
+								</TableCell>
+								<TableCell align="center">
+									<IconButton
+										aria-label="edit"
+										color="primary"
+										onClick={() => onEdit(student)}
+									>
+										<EditIcon />
+									</IconButton>
+									<IconButton
+										aria-label="delete"
+										color="secondary"
+										onClick={() => onDelete(student.id)}
+									>
+										<DeleteIcon />
+									</IconButton>
+								</TableCell>
 							</TableRow>
-						</TableHead>
-						<TableBody>
-							{this.state.students.map((student) => (
-								<TableRow
-									key={student.name}
-									hover={true}
-									to="/cadastro"
-									onClick={(e) => this.onDetail(e, student.id)}
-								>
-									<TableCell component="th" scope="row">
-										{student.name}
-									</TableCell>
-									<TableCell align="center">{student.class}</TableCell>
-									<TableCell align="center">
-										{this.resetData(student.birthDate)}
-									</TableCell>
-									<TableCell align="center">
-										{this.resetPhone(student.respPhone)}
-									</TableCell>
-									<TableCell align="center">
-										{this.resetResp(
-											student.respName,
-											student.respWarningDegree
-										)}
-									</TableCell>
-									<TableCell align="center">
-										<IconButton
-											aria-label="edit"
-											color="primary"
-											onClick={() => this.onEdit(student)}
-										>
-											<EditIcon />
-										</IconButton>
-										<IconButton
-											aria-label="delete"
-											color="secondary"
-											onClick={() => this.onDelete(student.id)}
-										>
-											<DeleteIcon />
-										</IconButton>
-									</TableCell>
-								</TableRow>
-							))}
-						</TableBody>
-					</Table>
-				)}
-			</ul>
-		);
-	}
+						))}
+					</TableBody>
+				</Table>
+			)}
+		</ul>
+	);
 }
-
-export default withRouter(StudentList);

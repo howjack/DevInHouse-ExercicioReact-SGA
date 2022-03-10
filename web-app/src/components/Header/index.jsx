@@ -1,30 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Link } from "react-router-dom";
 
-class Header extends React.Component {
-	constructor(props) {
-		super(props);
+export default function Header(){
 
-		this.state = {
-			value: 0,
-		};
+	const [tabs, setTabs] = useState(0);
 
-		this.handleChange = this.handleChange.bind(this);
-	}
-
-	handleChange = (event, newValue) => {
-		this.setState({ value: newValue });
-	};
-
-	render() {
 		return (
 			<Paper className="header">
 				<Tabs
-					value={this.state.value}
-					onChange={this.handleChange}
+					value={tabs}
+					onChange={(e, value) => setTabs(value)}
 					indicatorColor="primary"
 					textColor="primary"
 					centered
@@ -37,6 +25,3 @@ class Header extends React.Component {
 			</Paper>
 		);
 	}
-}
-
-export default Header;
