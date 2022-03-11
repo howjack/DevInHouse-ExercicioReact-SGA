@@ -10,14 +10,17 @@ import EditIcon from "@material-ui/icons/Edit";
 import { useHistory } from "react-router-dom";
 import { StudentContext } from "../../Context/StudentProvider";
 import { APIContext } from "../../Context/ApiProvider";
+import { EmployeeContext } from "../../Context/EmployeeProvider";
 
 export default function StudentList() {
 	const history = useHistory();
 	const studentContext = useContext(StudentContext);
 	const apiContext = useContext(APIContext);
+	const employeeContext = useContext(EmployeeContext);
 
 	const [students, setStudents] = useState(null);
 	const [show, setShow] = useState(false);
+	const [isTeacher, setIsTeacher] = useState(false);
 
 	function resetResp(name, kin) {
 		if (name && kin) {
@@ -55,6 +58,10 @@ export default function StudentList() {
 	}
 
 	useEffect(() => {
+		const { employee } = employeeContext;
+		if(employee.role === "Professor"){
+			setIsTeacher(true);
+		}
 		async function fetchData() {
 			const { api } = apiContext;
 			try {
@@ -69,7 +76,7 @@ export default function StudentList() {
 			}
 		}
 		fetchData();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	function onDetail(e, id) {
@@ -106,7 +113,7 @@ export default function StudentList() {
 							<TableCell align="center">Aniversario</TableCell>
 							<TableCell align="center">Telefone do Responsável</TableCell>
 							<TableCell align="center">Responsável</TableCell>
-							<TableCell align="center">Actions</TableCell>
+							{!isTeacher && <TableCell align="center">Actions</TableCell>}
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -130,7 +137,7 @@ export default function StudentList() {
 								<TableCell align="center">
 									{resetResp(student.respName, student.respWarningDegree)}
 								</TableCell>
-								<TableCell align="center">
+								{!isTeacher && <TableCell align="center">
 									<IconButton
 										aria-label="edit"
 										color="primary"
@@ -145,7 +152,7 @@ export default function StudentList() {
 									>
 										<DeleteIcon />
 									</IconButton>
-								</TableCell>
+								</TableCell>}
 							</TableRow>
 						))}
 					</TableBody>

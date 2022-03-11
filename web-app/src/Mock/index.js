@@ -12,9 +12,9 @@ createServer({
             id: 0,
             showTextArea: true,
             notes: "",
-            name: "Phelipe Alves Fagundes",
-            birthDate: "1998-06-26T03:00:00.000Z",
-            respName: "Valmor Fagundes",
+            name: "Phelipe Alves",
+            birthDate: "1995-09-20T03:00:00.000Z",
+            respName: "Edson Alves",
             respPhone: "5547999999999",
             respWarningDegree: "Pai",
             respWarningPhone: "5547999999999",
@@ -26,12 +26,12 @@ createServer({
                     grau: "Tios"
                 },
                 {
-                    name: "Marilda",
+                    name: "Luci",
                     grau: "Tios"
                 }
             ],
             class: "202",
-            remarks: "Gordinho"
+            remarks: "Bagunceiro"
         })
         server.create("student", {
             id: 1,
@@ -39,11 +39,11 @@ createServer({
             notes: "Mau Aluno",
             name: "Matheus Khorb",
             birthDate: "1999-03-20T03:00:00.000Z",
-            respName: "Mufasa Khorb",
+            respName: "Lucas Khorb",
             respPhone: "5547888888888",
             respWarningDegree: "Pai",
             respWarningPhone: "5547888888888",
-            foodDescription: "Colher",
+            foodDescription: "Alergia a frutos do mar",
             photoAuthorization: false,
             authorizedPersons: [
                 {
@@ -62,9 +62,9 @@ createServer({
             id: 2,
             showTextArea: false,
             notes: "",
-            name: "Cleverton Ruppenthal",
+            name: "Cleverton Oliveira",
             birthDate: "1999-04-16T03:00:00.000Z",
-            respName: "Rozeli Ruppenthal",
+            respName: "Rozeli Oliveira",
             respPhone: "5547777777777",
             respWarningDegree: "Mãe",
             respWarningPhone: "5547777777777",
@@ -81,11 +81,11 @@ createServer({
                 }
             ],
             class: "301",
-            remarks: "Nerd"
+            remarks: "Quieto"
         })
         server.create("employee", {
             id: 1,
-            name: "Phelipe Alves Fagundes",
+            name: "Phelipe Fagundes",
             email: "phelipe@sga.com",
             role: "Professor",
             classes: [104, 202],
