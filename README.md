@@ -8,8 +8,6 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ### 🎲 Rodando a aplicação web (Front End)
 
-🚧 Em construção... 🚧
-
 ```bash
 # Clone este repositório
 $ git clone https://github.com/howjack/React-SGA
